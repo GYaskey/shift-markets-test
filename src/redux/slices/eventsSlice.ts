@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Event } from "../../types/Event";
 import { toast } from "react-toastify";
 
-interface EventsState {
+export interface EventsState {
   events: Event[];
   isLoading: boolean;
   error: string | null;
@@ -14,7 +14,7 @@ const initialState: EventsState = {
   error: null,
 };
 
-const eventSlice = createSlice({
+const eventsSlice = createSlice({
   name: "events",
   initialState,
   reducers: {
@@ -96,6 +96,6 @@ const eventSlice = createSlice({
 });
 
 export const { addEvent, editEvent, deleteEvent, clearError, setLoading } =
-  eventSlice.actions;
+  eventsSlice.actions;
 
-export const eventReducer = eventSlice.reducer;
+export const eventsReducer = eventsSlice.reducer;

@@ -1,30 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import eventsReducer from "./slices/eventsSlice";
+import { eventsReducer } from "./slices/eventsSlice";
+import { loadState, saveState } from "../utils/localStorage";
 
-const loadState = () => {
-  try {
-    const serializedState = localStorage.getItem("eventsState");
-    return serializedState ? JSON.parse(serializedState) : undefined;
-  } catch (e) {
-    console.error("Could not load state", e);
-    return undefined;
-  }
-};
-
-const saveState = (state: any) => {
-  try {
-    const serializedState = JSON.stringify(state);
-    localStorage.setItem("eventsState", serializedState);
-  } catch (e) {
-    console.error("Could not save state", e);
-  }
-};
+const preloadedState = loadState();
 
 export const store = configureStore({
   reducer: {
     events: eventsReducer,
   },
-  preloadedState: loadState(),
+  preloadedState,
 });
 
 store.subscribe(() => {
