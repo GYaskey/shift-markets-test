@@ -1,0 +1,107 @@
+[
+  {
+    "id": "439175",
+    "title": "Event 1",
+    "description": "Description of event 1",
+    "date": "2025-01-28T17:53:04.899011",
+    "category": "Work"
+  },
+  {
+    "id": "376282",
+    "title": "Event 2",
+    "description": "Description of event 2",
+    "date": "2025-02-13T17:53:04.899029",
+    "category": "General"
+  },
+  {
+    "id": "428370",
+    "title": "Event 3",
+    "description": "Description of event 3",
+    "date": "2025-01-24T17:53:04.899037",
+    "category": "Personal"
+  },
+  {
+    "id": "184324",
+    "title": "Event 4",
+    "description": "Description of event 4",
+    "date": "2025-02-16T17:53:04.899047",
+    "category": "Personal"
+  },
+  {
+    "id": "432630",
+    "title": "Event 5",
+    "description": "Description of event 5",
+    "date": "2025-01-24T17:53:04.899055",
+    "category": "Meeting"
+  },
+  {
+    "id": "442146",
+    "title": "Event 6",
+    "description": "Description of event 6",
+    "date": "2025-02-03T17:53:04.899066",
+    "category": "Meeting"
+  },
+  {
+    "id": "350778",
+    "title": "Event 7",
+    "description": "Description of event 7",
+    "date": "2025-02-07T17:53:04.899071",
+    "category": "Meeting"
+  },
+  {
+    "id": "103888",
+    "title": "Event 8",
+    "description": "Description of event 8",
+    "date": "2025-02-12T17:53:04.899078",
+    "category": "Work"
+  },
+  {
+    "id": "585199",
+    "title": "Event 9",
+    "description": "Description of event 9",
+    "date": "2025-01-22T17:53:04.899084",
+    "category": "Personal"
+  },
+  {
+    "id": "549660",
+    "title": "Event 10",
+    "description": "Description of event 10",
+    "date": "2025-01-23T17:53:04.899090",
+    "category": "Meeting"
+  },
+  {
+    "id": "750048",
+    "title": "Event 11",
+    "description": "Description of event 11",
+    "date": "2025-02-04T17:53:04.899095",
+    "category": "Holiday"
+  },
+  {
+    "id": "750634",
+    "title": "Event 12",
+    "description": "Description of event 12",
+    "date": "2025-02-08T17:53:04.899100",
+    "category": "Personal"
+  },
+  {
+    "id": "487986",
+    "title": "Event 13",
+    "description": "Description of event 13",
+    "date": "2025-01-19T17:53:04.899105",
+    "category": "General"
+  },
+  {
+    "id": "893868",
+    "title": "Event 14",
+    "description": "Description of event 14",
+    "date": "2025-02-02T17:53:04.899109",
+    "category": "Holiday"
+  },
+  {
+    "id": "718882",
+    "title": "Event 15",
+    "description": "Description of event 15",
+    "date": "2025-01-21T17:53:04.899115",
+    "category": "Personal"
+  }
+]
