@@ -5,6 +5,7 @@ import { addEvent, editEvent } from "../../redux/slices/eventsSlice";
 import { Event } from "../../types/Event";
 import { nanoid } from "nanoid";
 import { selectEvents } from "../../redux/selectors/eventsSelectors";
+import styles from "./EventModal.module.css";
 
 interface EventModalProps {
   isOpen: boolean;
@@ -71,36 +72,33 @@ const EventModal = ({ isOpen, onClose, eventToEdit }: EventModalProps) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onRequestClose={onClose}>
-      <h2>{eventToEdit ? "Edit Event" : "Add Event"}</h2>
-      <form>
-        <div>
-          <label>Title</label>
+    <Modal isOpen={isOpen} onRequestClose={onClose} className={styles.modal}>
+      <h2 className={styles.modalTitle}>
+        {eventToEdit ? "Edit Event" : "Add Event"}
+      </h2>
+      <form className={styles.modalForm}>
+        <div className={styles.inputGroup}>
+          <label className={styles.inputLabel}>Title</label>
           <input
             type="text"
+            className={styles.inputField}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
-        <div>
-          <label>Description</label>
-          <input
-            type="text"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>Date</label>
+        <div className={styles.inputGroup}>
+          <label className={styles.inputLabel}>Date</label>
           <input
             type="datetime-local"
+            className={styles.inputField}
             value={date}
             onChange={(e) => setDate(e.target.value)}
           />
         </div>
-        <div>
-          <label>Category</label>
+        <div className={styles.inputGroup}>
+          <label className={styles.inputLabel}>Category</label>
           <select
+            className={styles.inputField}
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
@@ -112,12 +110,31 @@ const EventModal = ({ isOpen, onClose, eventToEdit }: EventModalProps) => {
             <option value="Meeting">Meeting</option>
           </select>
         </div>
-        <button type="button" onClick={handleSubmit}>
-          {eventToEdit ? "Update Event" : "Add Event"}
-        </button>
-        <button type="button" onClick={onClose}>
-          Close
-        </button>
+        <div className={styles.inputGroup}>
+          <label className={styles.inputLabel}>Description</label>
+          <input
+            type="text"
+            className={styles.inputField}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+        <div className={styles.modalActions}>
+          <button
+            type="button"
+            className={styles.submitButton}
+            onClick={handleSubmit}
+          >
+            {eventToEdit ? "Update Event" : "Add Event"}
+          </button>
+          <button
+            type="button"
+            className={styles.closeButton}
+            onClick={onClose}
+          >
+            Close
+          </button>
+        </div>
       </form>
     </Modal>
   );

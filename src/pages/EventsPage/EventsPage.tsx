@@ -6,6 +6,7 @@ import Pagination from "../../components/Pagination/Pagination";
 import { useSelector } from "react-redux";
 import { selectEvents } from "../../redux/selectors/eventsSelectors";
 import EventFilters from "../../components/EventFilters/EventFilters";
+import styles from "./EventsPage.module.css";
 
 const EventsPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,7 +21,6 @@ const EventsPage = () => {
 
   const events = useSelector(selectEvents);
 
-  // Фільтрація подій
   const filteredEvents = events
     .filter((event) => {
       return (
@@ -47,49 +47,46 @@ const EventsPage = () => {
     setIsModalOpen(false);
   };
 
-  // Функція скидання фільтрів
   const resetFilters = () => {
     setSearchQuery("");
     setCategory("");
     setStartDate(null);
     setEndDate(null);
-    setCurrentPage(1); // Скидаємо на першу сторінку після скидання фільтрів
+    setCurrentPage(1);
   };
 
   return (
-    <div>
+    <>
       <Header openModalForNewEvent={openModalForNewEvent} />
-
-      <EventFilters
-        searchQuery={searchQuery}
-        onSearchQueryChange={(e) => setSearchQuery(e.target.value)}
-        selectedCategory={category}
-        onCategoryChange={(e) => setCategory(e.target.value)}
-        startDate={startDate || ""}
-        onStartDateChange={(e) => setStartDate(e.target.value)}
-        endDate={endDate || ""}
-        onEndDateChange={(e) => setEndDate(e.target.value)}
-        onResetFilters={resetFilters} // Передаємо функцію скидання фільтрів
-      />
-
-      <EventList
-        openModalForEditingEvent={openModalForEditingEvent}
-        events={filteredEvents}
-      />
-
-      <Pagination
-        totalEvents={events.length} // Відправляємо загальну кількість подій (до фільтрації)
-        eventsPerPage={eventsPerPage}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
-
-      <EventModal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        eventToEdit={eventToEdit}
-      />
-    </div>
+      <div className={styles.pageContainer}>
+        <EventFilters
+          searchQuery={searchQuery}
+          onSearchQueryChange={(e) => setSearchQuery(e.target.value)}
+          selectedCategory={category}
+          onCategoryChange={(e) => setCategory(e.target.value)}
+          startDate={startDate || ""}
+          onStartDateChange={(e) => setStartDate(e.target.value)}
+          endDate={endDate || ""}
+          onEndDateChange={(e) => setEndDate(e.target.value)}
+          onResetFilters={resetFilters}
+        />
+        <EventList
+          openModalForEditingEvent={openModalForEditingEvent}
+          events={filteredEvents}
+        />
+        <Pagination
+          totalEvents={events.length}
+          eventsPerPage={eventsPerPage}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+        <EventModal
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          eventToEdit={eventToEdit}
+        />
+      </div>
+    </>
   );
 };
 

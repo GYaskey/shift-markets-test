@@ -1,5 +1,7 @@
+import styles from "./Pagination.module.css";
+
 interface PaginationProps {
-  totalEvents: number; // Загальна кількість подій (без фільтрації)
+  totalEvents: number;
   eventsPerPage: number;
   currentPage: number;
   setCurrentPage: (page: number) => void;
@@ -23,10 +25,11 @@ const Pagination: React.FC<PaginationProps> = ({
   }
 
   return (
-    <div>
+    <div className={styles.pagination}>
       <button
         onClick={() => handlePageClick(currentPage - 1)}
         disabled={currentPage === 1}
+        className={styles.pageButton}
       >
         Prev
       </button>
@@ -35,6 +38,9 @@ const Pagination: React.FC<PaginationProps> = ({
           key={number}
           onClick={() => handlePageClick(number)}
           disabled={currentPage === number}
+          className={`${styles.pageButton} ${
+            currentPage === number ? styles.active : ""
+          }`}
         >
           {number}
         </button>
@@ -42,6 +48,7 @@ const Pagination: React.FC<PaginationProps> = ({
       <button
         onClick={() => handlePageClick(currentPage + 1)}
         disabled={currentPage === totalPages}
+        className={styles.pageButton}
       >
         Next
       </button>

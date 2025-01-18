@@ -1,24 +1,37 @@
 import { Event } from "../../types/Event";
+import styles from "./EventItem.module.css";
 
 interface EventItemProps {
   event: Event;
-  onEdit: (eventId: string) => void; // Приймаємо функцію для редагування
-  onDelete: (eventId: string) => void; // Приймаємо функцію для видалення
+  onEdit: (eventId: string) => void;
+  onDelete: (eventId: string) => void;
 }
 
 const EventItem = ({ event, onEdit, onDelete }: EventItemProps) => {
   return (
-    <li>
-      <h3>{event.title}</h3>
-      <p>{event.description}</p>
-      <p>{event.date}</p>
-      <p>{event.category}</p>
-      <button type="button" onClick={() => onDelete(event.id)}>
-        Delete event
-      </button>
-      <button type="button" onClick={() => onEdit(event.id)}>
-        Edit event
-      </button>
+    <li className={styles.eventItem}>
+      <h3 className={styles.eventTitle}>{event.title}</h3>
+      <div className={styles.eventMeta}>
+        <p className={styles.eventDate}>{event.date}</p>
+        <p className={styles.eventCategory}>{event.category}</p>
+      </div>
+      <p className={styles.eventDescription}>{event.description}</p>
+      <div className={styles.eventActions}>
+        <button
+          type="button"
+          className={styles.deleteButton}
+          onClick={() => onDelete(event.id)}
+        >
+          Delete event
+        </button>
+        <button
+          type="button"
+          className={styles.editButton}
+          onClick={() => onEdit(event.id)}
+        >
+          Edit event
+        </button>
+      </div>
     </li>
   );
 };
