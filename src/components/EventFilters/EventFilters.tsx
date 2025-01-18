@@ -7,6 +7,7 @@ interface EventFiltersProps {
   onStartDateChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   endDate: string;
   onEndDateChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onResetFilters: () => void; // Додали функцію скидання
 }
 
 const EventFilters = ({
@@ -18,6 +19,7 @@ const EventFilters = ({
   onStartDateChange,
   endDate,
   onEndDateChange,
+  onResetFilters, // Приймаємо функцію скидання
 }: EventFiltersProps) => {
   return (
     <div>
@@ -47,6 +49,8 @@ const EventFilters = ({
         <label>End Date:</label>
         <input type="date" value={endDate} onChange={onEndDateChange} />
       </div>
+      {/* Кнопка скидання фільтрів */}
+      <button onClick={onResetFilters}>Reset Filters</button>
     </div>
   );
 };

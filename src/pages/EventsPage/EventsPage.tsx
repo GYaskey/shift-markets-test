@@ -1,29 +1,45 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { selectEvents } from "../../redux/selectors/eventsSelectors"; // Для доступу до подій
 import EventList from "../../components/EventList/EventList";
 import EventModal from "../../components/EventModal/EventModal";
 import Header from "../../components/Header/Header";
-import EventFilters from "../../components/EventFilters/EventFilters"; // Додаємо компонент фільтрів
-import { Event } from "../../types/Event"; // Імпортуємо тип Event
+import Pagination from "../../components/Pagination/Pagination";
+import { useSelector } from "react-redux";
+import { selectEvents } from "../../redux/selectors/eventsSelectors";
+import EventFilters from "../../components/EventFilters/EventFilters";
 
 const EventsPage = () => {
-  const events = useSelector(selectEvents); // Вибираємо всі події з Redux
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [eventToEdit, setEventToEdit] = useState<string | null>(null); // Для редагування події
-  const [searchQuery, setSearchQuery] = useState(""); // Для пошуку за назвою
-  const [selectedCategory, setSelectedCategory] = useState(""); // Для фільтру за категорією
-  const [startDate, setStartDate] = useState(""); // Для фільтру за початковою датою
-  const [endDate, setEndDate] = useState(""); // Для фільтру за кінцевою датою
+  const [eventToEdit, setEventToEdit] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const eventsPerPage = 10;
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [startDate, setStartDate] = useState<string | null>(null);
+  const [endDate, setEndDate] = useState<string | null>(null);
+  const [category, setCategory] = useState<string>("");
+
+  const events = useSelector(selectEvents);
+
+  // Фільтрація подій
+  const filteredEvents = events
+    .filter((event) => {
+      return (
+        event.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+        (!startDate || new Date(event.date) >= new Date(startDate)) &&
+        (!endDate || new Date(event.date) <= new Date(endDate)) &&
+        (!category ||
+          event.category.toLowerCase().includes(category.toLowerCase()))
+      );
+    })
+    .slice((currentPage - 1) * eventsPerPage, currentPage * eventsPerPage);
 
   const openModalForNewEvent = () => {
-    setEventToEdit(null); // Для нової події
+    setEventToEdit(null);
     setIsModalOpen(true);
   };
 
   const openModalForEditingEvent = (eventId: string) => {
-    setEventToEdit(eventId); // Для редагування події
+    setEventToEdit(eventId);
     setIsModalOpen(true);
   };
 
@@ -31,50 +47,47 @@ const EventsPage = () => {
     setIsModalOpen(false);
   };
 
-  // Фільтруємо події на основі пошуку, категорії та діапазону дат
-  const filteredEvents = events.filter((event: Event) => {
-    const matchesSearch = event.title
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase()); // Пошук за назвою
-    const matchesCategory =
-      !selectedCategory || event.category === selectedCategory; // Фільтр за категорією
-    const matchesDateRange =
-      (!startDate || new Date(event.date) >= new Date(startDate)) &&
-      (!endDate || new Date(event.date) <= new Date(endDate)); // Фільтр за датами
-    return matchesSearch && matchesCategory && matchesDateRange;
-  });
-
-  // Функція для скидання фільтрів
+  // Функція скидання фільтрів
   const resetFilters = () => {
     setSearchQuery("");
-    setSelectedCategory("");
-    setStartDate("");
-    setEndDate("");
+    setCategory("");
+    setStartDate(null);
+    setEndDate(null);
+    setCurrentPage(1); // Скидаємо на першу сторінку після скидання фільтрів
   };
 
   return (
     <div>
       <Header openModalForNewEvent={openModalForNewEvent} />
+
       <EventFilters
         searchQuery={searchQuery}
-        onSearchQueryChange={(e) => setSearchQuery(e.target.value)} // Оновлюємо пошук
-        selectedCategory={selectedCategory}
-        onCategoryChange={(e) => setSelectedCategory(e.target.value)} // Оновлюємо категорію
-        startDate={startDate}
-        onStartDateChange={(e) => setStartDate(e.target.value)} // Оновлюємо початкову дату
-        endDate={endDate}
-        onEndDateChange={(e) => setEndDate(e.target.value)} // Оновлюємо кінцеву дату
+        onSearchQueryChange={(e) => setSearchQuery(e.target.value)}
+        selectedCategory={category}
+        onCategoryChange={(e) => setCategory(e.target.value)}
+        startDate={startDate || ""}
+        onStartDateChange={(e) => setStartDate(e.target.value)}
+        endDate={endDate || ""}
+        onEndDateChange={(e) => setEndDate(e.target.value)}
+        onResetFilters={resetFilters} // Передаємо функцію скидання фільтрів
       />
-      <button onClick={resetFilters}>Reset Filters</button>{" "}
-      {/* Кнопка для скидання фільтрів */}
+
       <EventList
-        events={filteredEvents} // Передаємо фільтровані події
-        openModalForEditingEvent={openModalForEditingEvent} // Функція для редагування
+        openModalForEditingEvent={openModalForEditingEvent}
+        events={filteredEvents}
       />
+
+      <Pagination
+        totalEvents={events.length} // Відправляємо загальну кількість подій (до фільтрації)
+        eventsPerPage={eventsPerPage}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
+
       <EventModal
         isOpen={isModalOpen}
         onClose={closeModal}
-        eventToEdit={eventToEdit} // Передаємо id події для редагування
+        eventToEdit={eventToEdit}
       />
     </div>
   );
