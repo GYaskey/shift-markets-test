@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import Modal from "react-modal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addEvent, editEvent } from "../../redux/slices/eventsSlice";
 import { Event } from "../../types/Event";
 import { nanoid } from "nanoid";
+import { selectEvents } from "../../redux/selectors/eventsSelectors";
 
 interface EventModalProps {
   isOpen: boolean;
@@ -17,34 +18,48 @@ const EventModal = ({ isOpen, onClose, eventToEdit }: EventModalProps) => {
   const [date, setDate] = useState("");
   const [category, setCategory] = useState("");
   const dispatch = useDispatch();
+  const events = useSelector(selectEvents);
 
   useEffect(() => {
     if (eventToEdit) {
-      // Якщо ми редагуємо, заповнюємо дані існуючої події
-      const eventToEditData = {}; // Тут ви маєте отримати подію з Redux або іншого сховища за eventToEdit (id)
-      setTitle(eventToEditData.title);
-      setDescription(eventToEditData.description);
-      setDate(eventToEditData.date);
-      setCategory(eventToEditData.category);
+      // Знаходимо подію для редагування
+      const event = events.find((e) => e.id === eventToEdit);
+      if (event) {
+        setTitle(event.title);
+        setDescription(event.description);
+        setDate(event.date);
+        setCategory(event.category);
+      }
     } else {
-      // Очистити форму для додавання нового івенту
+      // Очищуємо форму для нової події
       setTitle("");
       setDescription("");
       setDate("");
       setCategory("");
     }
-  }, [eventToEdit]);
+  }, [eventToEdit, events]);
 
   const handleSubmit = () => {
+    if (!title || !date || !category) {
+      alert("Title, date, and category are required!");
+      return;
+    }
+
     if (eventToEdit) {
       // Оновлення існуючої події
       dispatch(
-        editEvent({ ...eventToEdit, title, description, date, category })
+        editEvent({
+          id: eventToEdit,
+          title,
+          description,
+          date,
+          category,
+        })
       );
     } else {
       // Додавання нової події
       const newEvent: Event = {
-        id: nanoid(), // Генерація ID для нової події
+        id: nanoid(),
         title,
         description,
         date,
@@ -89,6 +104,9 @@ const EventModal = ({ isOpen, onClose, eventToEdit }: EventModalProps) => {
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
+            <option value="" disabled>
+              Select category
+            </option>
             <option value="Work">Work</option>
             <option value="Personal">Personal</option>
             <option value="Meeting">Meeting</option>
