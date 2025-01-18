@@ -1,15 +1,14 @@
-import { useSelector } from "react-redux";
-import { selectEvents } from "../../redux/selectors/eventsSelectors";
-import EventItem from "../EventItem/EventItem";
 import { useDispatch } from "react-redux";
-import { deleteEvent } from "../../redux/slices/eventsSlice"; // Імпортуємо дію для видалення події
+import { deleteEvent } from "../../redux/slices/eventsSlice"; // Імпорт дії для видалення події
+import EventItem from "../EventItem/EventItem"; // Імпорт компоненту події
+import { Event } from "../../types/Event"; // Імпортуємо тип Event
 
 interface EventListProps {
+  events: Event[]; // Передаємо відфільтровані події
   openModalForEditingEvent: (eventId: string) => void; // Для відкриття модалки редагування
 }
 
-const EventList = ({ openModalForEditingEvent }: EventListProps) => {
-  const events = useSelector(selectEvents);
+const EventList = ({ events, openModalForEditingEvent }: EventListProps) => {
   const dispatch = useDispatch();
 
   // Функція для видалення події
@@ -18,7 +17,7 @@ const EventList = ({ openModalForEditingEvent }: EventListProps) => {
   };
 
   if (events.length === 0) {
-    return <p>No events available. Please add some events!</p>;
+    return <p>No events match the criteria. Try adjusting the filters!</p>; // Якщо немає відповідних подій
   }
 
   return (
