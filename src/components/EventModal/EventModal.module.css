@@ -4,10 +4,18 @@
   border-radius: 8px;
   width: 400px;
   max-width: 100%;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
 }
 
 .modalTitle {
-  font-size: 1.5rem;
+  font-size: 22px;
   margin-bottom: 20px;
   text-align: center;
 }
@@ -30,9 +38,18 @@
 
 .inputField {
   padding: 8px;
-  font-size: 1rem;
+  font-size: 18px;
   border: 1px solid #ddd;
   border-radius: 5px;
+}
+
+.descriptionField {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+
+  height: 100px;
 }
 
 .modalActions {
@@ -44,7 +61,7 @@
 .submitButton,
 .closeButton {
   padding: 10px 15px;
-  font-size: 1rem;
+  font-size: 18px;
   border: none;
   cursor: pointer;
   border-radius: 5px;
@@ -52,16 +69,16 @@
 }
 
 .submitButton {
-  background-color: #4caf50;
+  background-color: #31d9d4;
   color: white;
 }
 
 .submitButton:hover {
-  background-color: #45a049;
+  background-color: #04eae3;
 }
 
 .closeButton {
-  background-color: #ff6347;
+  background-color: #fc6767;
   color: white;
 }
 

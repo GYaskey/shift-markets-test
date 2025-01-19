@@ -112,11 +112,11 @@ const EventModal = ({ isOpen, onClose, eventToEdit }: EventModalProps) => {
         </div>
         <div className={styles.inputGroup}>
           <label className={styles.inputLabel}>Description</label>
-          <input
-            type="text"
-            className={styles.inputField}
+          <textarea
+            className={styles.descriptionField}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            placeholder="Add a description..."
           />
         </div>
         <div className={styles.modalActions}>

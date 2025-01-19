@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background-color: #0073e6;
+  background-color: #484848;
   color: white;
 }
 
@@ -14,7 +14,7 @@
 
 .header button {
   padding: 10px 20px;
-  background-color: #ff6347;
+  background-color: #31d9d4;
   color: white;
   border: none;
   border-radius: 5px;
@@ -24,5 +24,5 @@
 }
 
 .header button:hover {
-  background-color: #ff4500;
+  background-color: #04eae3;
 }

@@ -25,7 +25,7 @@ const EventFilters = ({
   onResetFilters,
 }: EventFiltersProps) => {
   return (
-    <div>
+    <div className={styles.eventFilters}>
       <div className={styles.filtersContainer}>
         <div className={styles.filterGroup}>
           <label>Search by Title:</label>

@@ -1,4 +1,5 @@
 import { Event } from "../../types/Event";
+import { formatDate } from "../../utils/formatDate";
 import styles from "./EventItem.module.css";
 
 interface EventItemProps {
@@ -8,11 +9,13 @@ interface EventItemProps {
 }
 
 const EventItem = ({ event, onEdit, onDelete }: EventItemProps) => {
+  const formatedDate = formatDate(event.date);
+
   return (
     <li className={styles.eventItem}>
       <h3 className={styles.eventTitle}>{event.title}</h3>
       <div className={styles.eventMeta}>
-        <p className={styles.eventDate}>{event.date}</p>
+        <p className={styles.eventDate}>{formatedDate}</p>
         <p className={styles.eventCategory}>{event.category}</p>
       </div>
       <p className={styles.eventDescription}>{event.description}</p>
