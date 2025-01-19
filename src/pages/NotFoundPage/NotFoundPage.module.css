@@ -1,0 +1,120 @@
+.pageContainer {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    90deg,
+    rgba(47, 54, 64, 1) 23%,
+    rgba(24, 27, 32, 1) 100%
+  );
+}
+
+.moon {
+  background: linear-gradient(
+    90deg,
+    rgba(208, 208, 208, 1) 48%,
+    rgba(145, 145, 145, 1) 100%
+  );
+  position: absolute;
+  top: -100px;
+  left: -300px;
+  width: 900px;
+  height: 900px;
+  border-radius: 50%;
+  box-shadow: 0px 0px 30px -4px rgba(0, 0, 0, 0.5);
+}
+
+.moonCrater {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(
+    90deg,
+    rgba(122, 122, 122, 1) 38%,
+    rgba(195, 195, 195, 1) 100%
+  );
+  opacity: 0.6;
+}
+
+.moonCrater1 {
+  top: 250px;
+  left: 500px;
+  width: 60px;
+  height: 180px;
+}
+.moonCrater2 {
+  top: 650px;
+  left: 340px;
+  width: 40px;
+  height: 80px;
+  transform: rotate(55deg);
+}
+.moonCrater3 {
+  top: -20px;
+  left: 40px;
+  width: 65px;
+  height: 120px;
+  transform: rotate(250deg);
+}
+
+.star {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: grey;
+  opacity: 0.4;
+  animation: shimmer 1.5s infinite alternate;
+}
+
+@keyframes shimmer {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.7;
+  }
+}
+
+.star1 {
+  top: 40%;
+  left: 50%;
+  animation-delay: 1s;
+}
+.star2 {
+  top: 60%;
+  left: 90%;
+  animation-delay: 3s;
+}
+
+.error {
+  position: absolute;
+  left: 100px;
+  top: 400px;
+  transform: translateY(-60%);
+  font-family: "Righteous", cursive;
+  color: #363e49;
+}
+.errorTitle {
+  font-size: 150px;
+}
+
+.errorSubtitle {
+  font-size: 30px;
+}
+
+.errorDescription {
+  font-size: 30px;
+}
+
+.errorButton {
+  background: #04eae3;
+  margin: 20px 0;
+  color: #363e49;
+  font-size: 30px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}

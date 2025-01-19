@@ -10,7 +10,7 @@ import styles from "./EventModal.module.css";
 interface EventModalProps {
   isOpen: boolean;
   onClose: () => void;
-  eventToEdit?: string | null; // Тепер передаємо тільки id події
+  eventToEdit?: string | null;
 }
 
 const EventModal = ({ isOpen, onClose, eventToEdit }: EventModalProps) => {
@@ -23,7 +23,6 @@ const EventModal = ({ isOpen, onClose, eventToEdit }: EventModalProps) => {
 
   useEffect(() => {
     if (eventToEdit) {
-      // Знаходимо подію для редагування
       const event = events.find((e) => e.id === eventToEdit);
       if (event) {
         setTitle(event.title);
@@ -32,7 +31,6 @@ const EventModal = ({ isOpen, onClose, eventToEdit }: EventModalProps) => {
         setCategory(event.category);
       }
     } else {
-      // Очищуємо форму для нової події
       setTitle("");
       setDescription("");
       setDate("");
@@ -47,7 +45,6 @@ const EventModal = ({ isOpen, onClose, eventToEdit }: EventModalProps) => {
     }
 
     if (eventToEdit) {
-      // Оновлення існуючої події
       dispatch(
         editEvent({
           id: eventToEdit,
@@ -58,7 +55,6 @@ const EventModal = ({ isOpen, onClose, eventToEdit }: EventModalProps) => {
         })
       );
     } else {
-      // Додавання нової події
       const newEvent: Event = {
         id: nanoid(),
         title,
@@ -68,7 +64,7 @@ const EventModal = ({ isOpen, onClose, eventToEdit }: EventModalProps) => {
       };
       dispatch(addEvent(newEvent));
     }
-    onClose(); // Закриваємо модалку після додавання/редагування
+    onClose();
   };
 
   return (

@@ -1,4 +1,3 @@
-// src/components/EventFilters/EventFilters.tsx
 import styles from "./EventFilters.module.css";
 
 interface EventFiltersProps {
