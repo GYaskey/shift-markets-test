@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
+
+import { selectEvents } from "../../redux/selectors/eventsSelectors";
 import EventList from "../../components/EventList/EventList";
 import EventModal from "../../components/EventModal/EventModal";
 import Header from "../../components/Header/Header";
 import Pagination from "../../components/Pagination/Pagination";
-import { useSelector } from "react-redux";
-import { selectEvents } from "../../redux/selectors/eventsSelectors";
 import EventFilters from "../../components/EventFilters/EventFilters";
 import styles from "./EventsPage.module.css";
 
@@ -21,17 +22,20 @@ const EventsPage = () => {
 
   const events = useSelector(selectEvents);
 
-  const filteredEvents = events
-    .filter((event) => {
-      return (
-        event.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
-        (!startDate || new Date(event.date) >= new Date(startDate)) &&
-        (!endDate || new Date(event.date) <= new Date(endDate)) &&
-        (!category ||
-          event.category.toLowerCase().includes(category.toLowerCase()))
-      );
-    })
-    .slice((currentPage - 1) * eventsPerPage, currentPage * eventsPerPage);
+  const filteredEvents = events.filter((event) => {
+    return (
+      event.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+      (!startDate || new Date(event.date) >= new Date(startDate)) &&
+      (!endDate || new Date(event.date) <= new Date(endDate)) &&
+      (!category ||
+        event.category.toLowerCase().includes(category.toLowerCase()))
+    );
+  });
+
+  const paginatedEvents = filteredEvents.slice(
+    (currentPage - 1) * eventsPerPage,
+    currentPage * eventsPerPage
+  );
 
   const openModalForNewEvent = () => {
     setEventToEdit(null);
@@ -72,14 +76,16 @@ const EventsPage = () => {
         />
         <EventList
           openModalForEditingEvent={openModalForEditingEvent}
-          events={filteredEvents}
+          events={paginatedEvents}
         />
-        <Pagination
-          totalEvents={events.length}
-          eventsPerPage={eventsPerPage}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
+        {filteredEvents.length > eventsPerPage && (
+          <Pagination
+            totalEvents={filteredEvents.length}
+            eventsPerPage={eventsPerPage}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        )}
         <EventModal
           isOpen={isModalOpen}
           onClose={closeModal}
