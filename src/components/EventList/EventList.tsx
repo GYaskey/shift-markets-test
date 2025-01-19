@@ -17,11 +17,7 @@ const EventList = ({ events, openModalForEditingEvent }: EventListProps) => {
   };
 
   if (events.length === 0) {
-    return (
-      <p className={styles.noEventsMessage}>
-        No events match the criteria. Try adjusting the filters!
-      </p>
-    );
+    return <p className={styles.noEventsMessage}>No events found!</p>;
   }
 
   return (
